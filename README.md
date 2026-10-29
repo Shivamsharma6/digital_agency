@@ -7,7 +7,9 @@ A responsive, production-quality landing page built with **Next.js (App Router)*
 ## Key Features & Highlights
 
 - **B2B Tech Consultancy Positioning**: Communicates digital presence, customer acquisition, workflow automation, and custom software under one roof.
-- **Centralized Configuration (`src/config/siteConfig.ts`)**: Edit brand name, contact details, phone, WhatsApp number, pricing packages, FAQs, and industry workflows in a single file without modifying component logic.
+- **Dark Mode Support**: Seamless toggle between light and dark themes using Tailwind `class` mode, FOUC prevention script, native `color-scheme` synchronization, and `localStorage` persistence.
+- **Bilingual Support (English & हिंदी)**: Seamless in-place language switching between English and authentic, professional Hindi for all 12 sections, form controls, validation, and FAQ.
+- **Centralized Configuration (`src/config/siteConfig.ts` & `src/config/translations.ts`)**: Edit brand name, contact details, phone, WhatsApp number, pricing packages, FAQs, and industry workflows in centralized dictionaries without modifying component logic.
 - **Modern Web Standards**:
   - Semantic HTML (`header`, `nav`, `main`, `section`, `footer`).
   - Native accessible form validation utilizing `:user-invalid` and `:user-valid` patterns from modern web guidance.

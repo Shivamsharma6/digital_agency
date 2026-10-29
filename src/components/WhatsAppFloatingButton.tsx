@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { siteConfig } from "@/config/siteConfig";
+import { useApp } from "@/context/AppContext";
 import { MessageCircle, X } from "lucide-react";
 
 export function WhatsAppFloatingButton() {
-  const { contact } = siteConfig;
+  const { t } = useApp();
+  const { contact, ui } = t;
   const [visible, setVisible] = useState(false);
   const [tooltipDismissed, setTooltipDismissed] = useState(false);
 
@@ -32,13 +33,13 @@ export function WhatsAppFloatingButton() {
     <div className="fixed bottom-6 right-6 z-40 flex items-center gap-3">
       {/* Optional dismissible prompt */}
       {!tooltipDismissed && (
-        <div className="hidden sm:flex items-center gap-2 bg-white text-slate-800 text-xs font-semibold py-2 px-3.5 rounded-full shadow-lg border border-slate-200 animate-in fade-in slide-in-from-right-3 duration-200">
-          <span>Need a quick answer? Chat with us</span>
+        <div className="hidden sm:flex items-center gap-2 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 text-xs font-semibold py-2 px-3.5 rounded-full shadow-lg border border-slate-200 dark:border-slate-800 animate-in fade-in slide-in-from-right-3 duration-200">
+          <span>{ui.quickPrompt}</span>
           <button
             type="button"
             onClick={() => setTooltipDismissed(true)}
-            className="text-slate-400 hover:text-slate-600 focus:outline-none"
-            aria-label="Dismiss WhatsApp popup helper"
+            className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 focus:outline-none"
+            aria-label={ui.dismiss}
           >
             <X className="w-3.5 h-3.5" />
           </button>

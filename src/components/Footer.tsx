@@ -1,14 +1,17 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
-import { siteConfig } from "@/config/siteConfig";
+import { useApp } from "@/context/AppContext";
 import { MessageCircle, Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
 
 export function Footer() {
-  const { brand, contact, navLinks, services } = siteConfig;
+  const { t } = useApp();
+  const { brand, contact, navLinks, services, ui } = t;
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-950 text-slate-300 pt-16 pb-12 border-t border-slate-800">
+    <footer className="bg-slate-950 text-slate-300 pt-16 pb-12 border-t border-slate-800 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
           {/* Brand & Mission column (spans 2 on lg) */}
@@ -26,7 +29,7 @@ export function Footer() {
             </Link>
 
             <p className="text-sm text-slate-400 max-w-sm leading-relaxed">
-              {brand.tagline}. We help local businesses attract more customers, build a credible digital presence, and automate daily operations through pragmatic software solutions.
+              {brand.tagline}. {brand.subheadline}
             </p>
 
             <div className="pt-2 text-xs text-slate-500">
@@ -37,7 +40,7 @@ export function Footer() {
           {/* Quick Navigation Links */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
-              Navigation
+              {ui.footer.navigation}
             </h4>
             <ul className="space-y-2.5 text-sm">
               {navLinks.map((link) => (
@@ -56,7 +59,7 @@ export function Footer() {
           {/* Service Links */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
-              Core Services
+              {ui.footer.coreServices}
             </h4>
             <ul className="space-y-2.5 text-sm">
               {services.map((service) => (
@@ -75,7 +78,7 @@ export function Footer() {
           {/* Contact Details & WhatsApp */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
-              Direct Contact
+              {ui.footer.directContact}
             </h4>
             <ul className="space-y-3 text-sm text-slate-400">
               <li className="flex items-start gap-2.5">
@@ -109,7 +112,7 @@ export function Footer() {
         {/* Bottom Bar: Legal & Copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>
-            &copy; {currentYear} {brand.name}. All rights reserved. Built for Indian local enterprises.
+            &copy; {currentYear} {brand.name}. {ui.footer.rightsReserved}
           </p>
 
           <div className="flex items-center gap-6">
@@ -117,13 +120,13 @@ export function Footer() {
               href="/privacy"
               className="hover:text-slate-300 transition-colors underline-offset-4 hover:underline"
             >
-              Privacy Policy
+              {ui.footer.privacyPolicy}
             </Link>
             <Link
               href="/terms"
               className="hover:text-slate-300 transition-colors underline-offset-4 hover:underline"
             >
-              Terms of Service
+              {ui.footer.termsOfService}
             </Link>
           </div>
         </div>

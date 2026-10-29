@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { siteConfig } from "@/config/siteConfig";
+import { useApp } from "@/context/AppContext";
 import {
   Send,
   MessageCircle,
@@ -12,7 +12,8 @@ import {
 } from "lucide-react";
 
 export function EnquirySection() {
-  const { finalCta, contact, services, industries } = siteConfig;
+  const { t, language } = useApp();
+  const { finalCta, contact, services, industries, ui } = t;
 
   // Form states
   const [fullName, setFullName] = useState("");
@@ -53,29 +54,44 @@ export function EnquirySection() {
     const errs: Record<string, string> = {};
 
     if (!fullName.trim() || fullName.trim().length < 2) {
-      errs.fullName = "Please enter your full name (at least 2 characters).";
+      errs.fullName =
+        language === "hi"
+          ? "कृपया अपना पूरा नाम दर्ज करें (कम से कम 2 अक्षर)।"
+          : "Please enter your full name (at least 2 characters).";
     }
 
     if (!businessName.trim() || businessName.trim().length < 2) {
-      errs.businessName = "Please enter your business or practice name.";
+      errs.businessName =
+        language === "hi"
+          ? "कृपया अपने व्यवसाय या क्लिनिक का नाम दर्ज करें।"
+          : "Please enter your business or practice name.";
     }
 
     if (contactMethod === "email" || contactMethod === "both") {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!email.trim() || !emailRegex.test(email)) {
-        errs.email = "Please enter a valid email address (e.g. name@company.com).";
+        errs.email =
+          language === "hi"
+            ? "कृपया एक वैध ईमेल पता दर्ज करें।"
+            : "Please enter a valid email address (e.g. name@company.com).";
       }
     }
 
     if (contactMethod === "phone" || contactMethod === "both") {
       const cleanPhone = phone.replace(/[^\d+]/g, "");
       if (!phone.trim() || cleanPhone.length < 10) {
-        errs.phone = "Please enter a 10-digit mobile number or full phone with country code.";
+        errs.phone =
+          language === "hi"
+            ? "कृपया 10-अंकों का मोबाइल नंबर दर्ज करें।"
+            : "Please enter a 10-digit mobile number or full phone with country code.";
       }
     }
 
     if (!consent) {
-      errs.consent = "Please confirm that you agree to be contacted regarding this request.";
+      errs.consent =
+        language === "hi"
+          ? "कृपया पुष्टि करें कि आप इस अनुरोध के संबंध में संपर्क किए जाने के लिए सहमत हैं।"
+          : "Please confirm that you agree to be contacted regarding this request.";
     }
 
     setErrors(errs);
@@ -114,13 +130,20 @@ export function EnquirySection() {
       if (!response.ok) {
         setSubmissionResult({
           success: false,
-          message: data.error || "Failed to submit enquiry. Please try again.",
+          message:
+            data.error ||
+            (language === "hi"
+              ? "अनुरोध सबमिट करने में विफल। कृपया पुनः प्रयास करें।"
+              : "Failed to submit enquiry. Please try again."),
         });
       } else {
         setSubmissionResult({
           success: true,
           mode: data.mode,
-          message: data.message,
+          message:
+            language === "hi"
+              ? "धन्यवाद! आपका पूछताछ विवरण प्राप्त हो गया है। हमारी टीम 1 कार्यदिवस के भीतर आपसे संपर्क करेगी।"
+              : data.message,
         });
         // Reset form on success
         setFullName("");
@@ -134,7 +157,10 @@ export function EnquirySection() {
     } catch {
       setSubmissionResult({
         success: false,
-        message: "Network error. Please check your internet connection or reach us directly on WhatsApp.",
+        message:
+          language === "hi"
+            ? "नेटवर्क त्रुटि। कृपया अपना इंटरनेट कनेक्शन जांचें या व्हाट्सएप पर सीधे संपर्क करें।"
+            : "Network error. Please check your internet connection or reach us directly on WhatsApp.",
       });
     } finally {
       setIsSubmitting(false);
@@ -147,18 +173,18 @@ export function EnquirySection() {
   )}`;
 
   return (
-    <section id="contact" className="py-24 bg-gradient-to-b from-white via-slate-50/50 to-slate-100/60">
+    <section id="contact" className="py-24 bg-gradient-to-b from-white via-slate-50/50 to-slate-100/60 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold uppercase tracking-wider mb-4 border border-blue-100">
-            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-            Direct Engagement
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 text-xs font-semibold uppercase tracking-wider mb-4 border border-blue-100 dark:border-blue-800">
+            <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+            {language === "hi" ? "सीधा जुड़ाव" : "Direct Engagement"}
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
             {finalCta.headline}
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
             {finalCta.supportingCopy}
           </p>
         </div>
@@ -166,17 +192,17 @@ export function EnquirySection() {
         {/* Dual Layout: Form + WhatsApp/Contact Card */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           {/* Left Column: Comprehensive Enquiry Form */}
-          <div className="lg:col-span-7 bg-white rounded-2xl p-6 sm:p-9 border border-slate-200 shadow-card">
-            <div className="flex items-center justify-between pb-6 mb-6 border-b border-slate-100">
+          <div className="lg:col-span-7 bg-white dark:bg-slate-900 rounded-2xl p-6 sm:p-9 border border-slate-200 dark:border-slate-800 shadow-card">
+            <div className="flex items-center justify-between pb-6 mb-6 border-b border-slate-100 dark:border-slate-800">
               <div>
-                <h3 className="text-xl font-bold text-slate-900">
-                  Request a Free Digital Audit & Discovery Call
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                  {ui.form.title}
                 </h3>
-                <p className="text-xs text-slate-500 mt-1">
-                  Fill in your details below for a structured preliminary assessment.
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  {ui.form.subtitle}
                 </p>
               </div>
-              <ShieldCheck className="w-6 h-6 text-blue-600 hidden sm:block shrink-0" />
+              <ShieldCheck className="w-6 h-6 text-blue-600 dark:text-blue-400 hidden sm:block shrink-0" />
             </div>
 
             {/* Submission Status Alert */}
@@ -184,28 +210,34 @@ export function EnquirySection() {
               <div
                 className={`mb-6 p-4 rounded-xl border text-sm leading-relaxed ${
                   submissionResult.success
-                    ? "bg-emerald-50 border-emerald-200 text-emerald-900"
-                    : "bg-red-50 border-red-200 text-red-900"
+                    ? "bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200"
+                    : "bg-red-50 dark:bg-red-950/40 border-red-200 dark:border-red-800 text-red-900 dark:text-red-200"
                 }`}
                 role="status"
                 aria-live="polite"
               >
                 <div className="flex items-start gap-3">
                   {submissionResult.success ? (
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                   ) : (
-                    <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+                    <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
                   )}
                   <div>
                     <p className="font-semibold">
-                      {submissionResult.success ? "Enquiry Received" : "Notice"}
+                      {submissionResult.success
+                        ? language === "hi"
+                          ? "पूछताछ प्राप्त हुई"
+                          : "Enquiry Received"
+                        : language === "hi"
+                        ? "सूचना"
+                        : "Notice"}
                     </p>
                     <p className="mt-1 text-xs sm:text-sm">
                       {submissionResult.message}
                     </p>
                     {submissionResult.mode === "demo" && (
-                      <p className="mt-2 text-xs font-mono bg-white/70 p-2 rounded border border-emerald-300">
-                        Developer Info: To forward enquiries to your real inbox or CRM, define ENQUIRY_WEBHOOK_URL in .env.local.
+                      <p className="mt-2 text-xs font-mono bg-white/70 dark:bg-slate-800/80 p-2 rounded border border-emerald-300 dark:border-emerald-700">
+                        Developer Info: Configure ENQUIRY_WEBHOOK_URL in .env.local to route leads in production.
                       </p>
                     )}
                   </div>
@@ -219,9 +251,9 @@ export function EnquirySection() {
                 <div>
                   <label
                     htmlFor="fullName"
-                    className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
+                    className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1"
                   >
-                    Your Full Name <span className="text-red-500">*</span>
+                    {ui.form.fullNameLabel} <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
                     <input
@@ -230,7 +262,7 @@ export function EnquirySection() {
                       name="fullName"
                       required
                       autoComplete="name"
-                      placeholder="e.g. Rahul Sharma"
+                      placeholder={ui.form.fullNamePlaceholder}
                       value={fullName}
                       onChange={(e) => {
                         setFullName(e.target.value);
@@ -240,11 +272,11 @@ export function EnquirySection() {
                       }}
                       aria-invalid={errors.fullName ? "true" : "false"}
                       aria-describedby={errors.fullName ? "fullName-error" : undefined}
-                      className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors"
                     />
                   </div>
                   {errors.fullName && (
-                    <p id="fullName-error" className="mt-1 text-xs text-red-600 flex items-center gap-1">
+                    <p id="fullName-error" className="mt-1 text-xs text-red-600 dark:text-red-400 flex items-center gap-1">
                       <AlertCircle className="w-3.5 h-3.5" /> {errors.fullName}
                     </p>
                   )}
@@ -253,9 +285,9 @@ export function EnquirySection() {
                 <div>
                   <label
                     htmlFor="businessName"
-                    className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
+                    className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1"
                   >
-                    Business / Practice Name <span className="text-red-500">*</span>
+                    {ui.form.businessNameLabel} <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
                     <input
@@ -263,7 +295,7 @@ export function EnquirySection() {
                       id="businessName"
                       name="businessName"
                       required
-                      placeholder="e.g. Apex Health Clinic"
+                      placeholder={ui.form.businessNamePlaceholder}
                       value={businessName}
                       onChange={(e) => {
                         setBusinessName(e.target.value);
@@ -273,11 +305,11 @@ export function EnquirySection() {
                       }}
                       aria-invalid={errors.businessName ? "true" : "false"}
                       aria-describedby={errors.businessName ? "businessName-error" : undefined}
-                      className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors"
                     />
                   </div>
                   {errors.businessName && (
-                    <p id="businessName-error" className="mt-1 text-xs text-red-600 flex items-center gap-1">
+                    <p id="businessName-error" className="mt-1 text-xs text-red-600 dark:text-red-400 flex items-center gap-1">
                       <AlertCircle className="w-3.5 h-3.5" /> {errors.businessName}
                     </p>
                   )}
@@ -286,8 +318,8 @@ export function EnquirySection() {
 
               {/* Preferred Contact Method Selection */}
               <div>
-                <span className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
-                  Preferred Contact Method
+                <span className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
+                  {ui.form.contactMethodLabel}
                 </span>
                 <div className="flex items-center gap-4 text-sm">
                   <label className="inline-flex items-center gap-2 cursor-pointer">
@@ -299,7 +331,7 @@ export function EnquirySection() {
                       onChange={() => setContactMethod("phone")}
                       className="text-blue-600 focus:ring-blue-500"
                     />
-                    <span className="text-slate-800 font-medium">WhatsApp / Phone</span>
+                    <span className="text-slate-800 dark:text-slate-200 font-medium">{ui.form.phoneOption}</span>
                   </label>
                   <label className="inline-flex items-center gap-2 cursor-pointer">
                     <input
@@ -310,7 +342,7 @@ export function EnquirySection() {
                       onChange={() => setContactMethod("email")}
                       className="text-blue-600 focus:ring-blue-500"
                     />
-                    <span className="text-slate-800 font-medium">Email</span>
+                    <span className="text-slate-800 dark:text-slate-200 font-medium">{ui.form.emailOption}</span>
                   </label>
                   <label className="inline-flex items-center gap-2 cursor-pointer">
                     <input
@@ -321,7 +353,7 @@ export function EnquirySection() {
                       onChange={() => setContactMethod("both")}
                       className="text-blue-600 focus:ring-blue-500"
                     />
-                    <span className="text-slate-800 font-medium">Both</span>
+                    <span className="text-slate-800 dark:text-slate-200 font-medium">{ui.form.bothOption}</span>
                   </label>
                 </div>
               </div>
@@ -332,9 +364,9 @@ export function EnquirySection() {
                   <div>
                     <label
                       htmlFor="phone"
-                      className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
+                      className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1"
                     >
-                      Phone / WhatsApp Number <span className="text-red-500">*</span>
+                      {ui.form.phoneLabel} <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="tel"
@@ -342,7 +374,7 @@ export function EnquirySection() {
                       name="phone"
                       required
                       autoComplete="tel"
-                      placeholder="+91 98765 43210"
+                      placeholder={ui.form.phonePlaceholder}
                       value={phone}
                       onChange={(e) => {
                         setPhone(e.target.value);
@@ -352,10 +384,10 @@ export function EnquirySection() {
                       }}
                       aria-invalid={errors.phone ? "true" : "false"}
                       aria-describedby={errors.phone ? "phone-error" : undefined}
-                      className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors"
                     />
                     {errors.phone && (
-                      <p id="phone-error" className="mt-1 text-xs text-red-600 flex items-center gap-1">
+                      <p id="phone-error" className="mt-1 text-xs text-red-600 dark:text-red-400 flex items-center gap-1">
                         <AlertCircle className="w-3.5 h-3.5" /> {errors.phone}
                       </p>
                     )}
@@ -366,9 +398,9 @@ export function EnquirySection() {
                   <div className={contactMethod === "email" ? "sm:col-span-2" : ""}>
                     <label
                       htmlFor="email"
-                      className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
+                      className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1"
                     >
-                      Email Address <span className="text-red-500">*</span>
+                      {ui.form.emailLabel} <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="email"
@@ -376,7 +408,7 @@ export function EnquirySection() {
                       name="email"
                       required
                       autoComplete="email"
-                      placeholder="rahul@clinic.com"
+                      placeholder={ui.form.emailPlaceholder}
                       value={email}
                       onChange={(e) => {
                         setEmail(e.target.value);
@@ -386,10 +418,10 @@ export function EnquirySection() {
                       }}
                       aria-invalid={errors.email ? "true" : "false"}
                       aria-describedby={errors.email ? "email-error" : undefined}
-                      className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors"
                     />
                     {errors.email && (
-                      <p id="email-error" className="mt-1 text-xs text-red-600 flex items-center gap-1">
+                      <p id="email-error" className="mt-1 text-xs text-red-600 dark:text-red-400 flex items-center gap-1">
                         <AlertCircle className="w-3.5 h-3.5" /> {errors.email}
                       </p>
                     )}
@@ -402,48 +434,48 @@ export function EnquirySection() {
                 <div>
                   <label
                     htmlFor="industry"
-                    className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
+                    className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1"
                   >
-                    Your Industry
+                    {ui.form.industryLabel}
                   </label>
                   <select
                     id="industry"
                     name="industry"
                     value={selectedIndustry}
                     onChange={(e) => setSelectedIndustry(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors"
+                    className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors"
                   >
-                    <option value="">Select your industry...</option>
+                    <option value="">{ui.form.industryPlaceholder}</option>
                     {industries.map((ind) => (
                       <option key={ind.id} value={ind.id}>
                         {ind.name}
                       </option>
                     ))}
-                    <option value="other">Other Local Business / Service</option>
+                    <option value="other">{ui.form.otherIndustry}</option>
                   </select>
                 </div>
 
                 <div>
                   <label
                     htmlFor="service"
-                    className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
+                    className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1"
                   >
-                    Primary Service of Interest
+                    {ui.form.serviceLabel}
                   </label>
                   <select
                     id="service"
                     name="service"
                     value={selectedService}
                     onChange={(e) => setSelectedService(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors"
+                    className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors"
                   >
-                    <option value="">Select service focus...</option>
+                    <option value="">{ui.form.servicePlaceholder}</option>
                     {services.map((srv) => (
                       <option key={srv.id} value={srv.id}>
                         {srv.title}
                       </option>
                     ))}
-                    <option value="all-in-one">Comprehensive Growth & Automation</option>
+                    <option value="all-in-one">{ui.form.allInOneService}</option>
                   </select>
                 </div>
               </div>
@@ -452,18 +484,18 @@ export function EnquirySection() {
               <div>
                 <label
                   htmlFor="problemDescription"
-                  className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
+                  className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1"
                 >
-                  Brief Overview of Your Current Challenge or Goal (Optional)
+                  {ui.form.problemLabel}
                 </label>
                 <textarea
                   id="problemDescription"
                   name="problemDescription"
                   rows={3}
-                  placeholder="e.g. We get enquiries on WhatsApp but staff forget to follow up, and our current website does not look professional on smartphones."
+                  placeholder={ui.form.problemPlaceholder}
                   value={problemDescription}
                   onChange={(e) => setProblemDescription(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors"
                 />
               </div>
 
@@ -481,14 +513,14 @@ export function EnquirySection() {
                         setErrors((prev) => ({ ...prev, consent: "" }));
                       }
                     }}
-                    className="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                    className="mt-0.5 rounded border-slate-300 dark:border-slate-700 text-blue-600 focus:ring-blue-500"
                   />
-                  <span className="text-xs text-slate-600 leading-normal">
-                    I agree to be contacted via WhatsApp, phone, or email regarding this digital audit request. We respect your privacy and will never share your details with third parties.
+                  <span className="text-xs text-slate-600 dark:text-slate-300 leading-normal">
+                    {ui.form.consentText}
                   </span>
                 </label>
                 {errors.consent && (
-                  <p className="mt-1 text-xs text-red-600 flex items-center gap-1">
+                  <p className="mt-1 text-xs text-red-600 dark:text-red-400 flex items-center gap-1">
                     <AlertCircle className="w-3.5 h-3.5" /> {errors.consent}
                   </p>
                 )}
@@ -498,24 +530,24 @@ export function EnquirySection() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-base font-semibold bg-slate-900 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-base font-semibold bg-slate-900 dark:bg-blue-600 text-white hover:bg-blue-600 dark:hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <>
                     <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    <span>Processing Your Request...</span>
+                    <span>{ui.form.submittingButton}</span>
                   </>
                 ) : (
                   <>
-                    <span>Submit Free Digital Audit Request</span>
+                    <span>{ui.form.submitButton}</span>
                     <Send className="w-4 h-4" />
                   </>
                 )}
               </button>
 
               {/* Audit Scope Disclaimer */}
-              <p className="text-[11px] text-slate-400 text-center leading-normal">
-                {finalCta.auditDisclaimer}
+              <p className="text-[11px] text-slate-400 dark:text-slate-500 text-center leading-normal">
+                {ui.form.auditScopeNote}
               </p>
             </form>
           </div>
@@ -527,14 +559,16 @@ export function EnquirySection() {
               <div className="relative z-10">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-900/90 text-emerald-300 text-xs font-semibold mb-4 border border-emerald-700">
                   <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
-                  Fastest Response Channel
+                  {ui.fastestChannel}
                 </div>
 
                 <h3 className="text-2xl font-bold tracking-tight">
-                  Prefer to Chat on WhatsApp?
+                  {ui.preferWhatsApp}
                 </h3>
                 <p className="mt-2 text-sm text-emerald-200 leading-relaxed">
-                  Send us a direct message with a link to your current website or Google Business listing. We will review it and reply during business hours.
+                  {language === "hi"
+                    ? "अपनी वर्तमान वेबसाइट या गूगल बिजनेस लिस्टिंग के लिंक के साथ हमें सीधा संदेश भेजें। हम व्यावसायिक घंटों के दौरान समीक्षा करेंगे।"
+                    : "Send us a direct message with a link to your current website or Google Business listing. We will review it and reply during business hours."}
                 </p>
 
                 <div className="mt-6">
@@ -542,65 +576,65 @@ export function EnquirySection() {
                     href={whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2.5 w-full px-5 py-3.5 rounded-xl text-sm font-bold bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition-all shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-400"
+                    className="inline-flex items-center justify-center gap-2.5 w-full px-5 py-3.5 rounded-xl text-sm font-bold bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition-all shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-emerald-400"
                   >
                     <MessageCircle className="w-5 h-5 fill-slate-950" />
-                    <span>Talk to Us on WhatsApp</span>
+                    <span>{ui.talkOnWhatsApp}</span>
                   </a>
                 </div>
 
                 <p className="mt-3 text-xs text-emerald-300/80 text-center">
-                  Direct number: {contact.whatsappDisplayNumber}
+                  {contact.whatsappDisplayNumber}
                 </p>
               </div>
             </div>
 
             {/* Why Request an Audit Box */}
-            <div className="bg-white rounded-2xl p-7 border border-slate-200 shadow-subtle">
-              <h4 className="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-blue-600" />
-                What Happens After You Submit?
+            <div className="bg-white dark:bg-slate-900 rounded-2xl p-7 border border-slate-200 dark:border-slate-800 shadow-subtle">
+              <h4 className="text-base font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                {ui.whatHappensNext.title}
               </h4>
-              <ul className="space-y-3.5 text-sm text-slate-600">
+              <ul className="space-y-3.5 text-sm text-slate-600 dark:text-slate-300">
                 <li className="flex items-start gap-2.5">
-                  <span className="font-mono font-bold text-slate-400 text-xs shrink-0 mt-0.5">
+                  <span className="font-mono font-bold text-slate-400 dark:text-slate-500 text-xs shrink-0 mt-0.5">
                     1.
                   </span>
                   <span>
-                    <strong>Preliminary Review:</strong> We inspect your website speed, Google Maps profile, and mobile experience.
+                    <strong>{ui.whatHappensNext.step1Title}</strong> {ui.whatHappensNext.step1Desc}
                   </span>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <span className="font-mono font-bold text-slate-400 text-xs shrink-0 mt-0.5">
+                  <span className="font-mono font-bold text-slate-400 dark:text-slate-500 text-xs shrink-0 mt-0.5">
                     2.
                   </span>
                   <span>
-                    <strong>Discovery Call:</strong> A brief 15–20 minute conversation to discuss your customer acquisition bottlenecks.
+                    <strong>{ui.whatHappensNext.step2Title}</strong> {ui.whatHappensNext.step2Desc}
                   </span>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <span className="font-mono font-bold text-slate-400 text-xs shrink-0 mt-0.5">
+                  <span className="font-mono font-bold text-slate-400 dark:text-slate-500 text-xs shrink-0 mt-0.5">
                     3.
                   </span>
                   <span>
-                    <strong>Actionable Roadmap:</strong> Honest recommendations with transparent costs—with zero obligation to hire us.
+                    <strong>{ui.whatHappensNext.step3Title}</strong> {ui.whatHappensNext.step3Desc}
                   </span>
                 </li>
               </ul>
             </div>
 
             {/* Business Operating Hours & Details */}
-            <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-2">
+            <div className="p-5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="font-semibold text-slate-800">Operating Hours:</span>
+                <span className="font-semibold text-slate-800 dark:text-slate-200">{ui.operatingHours}</span>
                 <span>{contact.workingHours}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="font-semibold text-slate-800">Service Coverage:</span>
-                <span>Pan-India Remote Delivery</span>
+                <span className="font-semibold text-slate-800 dark:text-slate-200">{ui.serviceCoverage}</span>
+                <span>{language === "hi" ? "अखिल भारतीय रिमोट डिलीवरी" : "Pan-India Remote Delivery"}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="font-semibold text-slate-800">Direct Email:</span>
+                <span className="font-semibold text-slate-800 dark:text-slate-200">{ui.directEmail}</span>
                 <span className="font-mono">{contact.emailPlaceholder}</span>
               </div>
             </div>
