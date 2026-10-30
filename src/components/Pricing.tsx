@@ -1,132 +1,296 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useApp } from "@/context/AppContext";
-import { Check, ArrowRight, Info, Sparkles } from "lucide-react";
+import { Check, X, ArrowRight, Sparkles, MessageCircle, PhoneCall, ChevronDown, ChevronUp } from "lucide-react";
 
 export function Pricing() {
   const { t, language } = useApp();
-  const { pricing } = t;
+  const {
+    pricingBadge,
+    pricingHeadline,
+    pricingHeadlineAccent,
+    pricingSubheadline,
+    freePlan,
+    pricingPlans,
+    comparisonRows,
+    contact,
+    ui,
+  } = t;
+
+  const [showComparison, setShowComparison] = useState(true);
 
   return (
-    <section id="pricing" className="py-24 bg-slate-50/60 dark:bg-slate-900/40 border-b border-slate-200 dark:border-slate-800 transition-colors duration-200">
+    <section id="pricing" className="py-24 bg-slate-50 dark:bg-slate-900/40 border-b border-slate-200 dark:border-slate-800 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 text-xs font-semibold uppercase tracking-wider mb-4 border border-blue-100 dark:border-blue-800">
-            <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-            {pricing.badge}
+        <div className="max-w-3xl mx-auto text-center mb-16">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950/60 text-[#2a9dc8] text-xs font-semibold uppercase tracking-wider mb-4 border border-sky-200 dark:border-sky-800">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>{pricingBadge}</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-            {pricing.headline}
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            {pricingHeadline}{" "}
+            <span className="text-[#2a9dc8]">{pricingHeadlineAccent}</span>
           </h2>
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-            {pricing.intro}
+            {pricingSubheadline}
           </p>
         </div>
 
-        {/* 3 Pricing Packages */}
-        <div className="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-          {pricing.packages.map((pkg) => (
-            <div
-              key={pkg.id}
-              className={`rounded-2xl p-8 flex flex-col justify-between transition-all relative ${
-                pkg.isPopular
-                  ? "bg-white dark:bg-slate-900 border-2 border-blue-600 shadow-elevated ring-1 ring-blue-600/20"
-                  : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md"
-              }`}
-            >
-              {/* Popular Badge */}
-              {pkg.isPopular && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full shadow-sm">
-                  {language === "hi" ? "विकास के लिए अनुशंसित" : "Recommended For Growth"}
-                </div>
-              )}
+        {/* Free Plan Banner */}
+        <div className="mb-12 bg-white dark:bg-slate-900 rounded-2xl border-2 border-dashed border-[#2a9dc8]/40 dark:border-[#2a9dc8]/30 p-6 sm:p-8 shadow-sm">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="max-w-2xl">
+              <span className="inline-block px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider mb-2 border border-emerald-200 dark:border-emerald-800">
+                {freePlan.badge}
+              </span>
+              <h3 className="text-2xl font-extrabold text-slate-900 dark:text-white">
+                {freePlan.title}
+              </h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">
+                {freePlan.description}
+              </p>
+              <div className="flex flex-wrap items-center gap-4 mt-4">
+                {freePlan.features.map((feat) => (
+                  <div key={feat} className="flex items-center gap-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300">
+                    <Check className="w-4 h-4 text-emerald-500" />
+                    <span>{feat}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-              <div>
-                {/* Header */}
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                  {pkg.name}
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 min-h-[32px]">
-                  {pkg.tagline}
-                </p>
+            <div className="flex items-center">
+              <a
+                href="#enquiry?plan=free"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold bg-[#2a9dc8] text-white hover:bg-[#2286ab] shadow-sm transition-all"
+              >
+                <span>{freePlan.cta}</span>
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </div>
 
-                {/* Price Display */}
-                <div className="mt-5 pb-6 border-b border-slate-100 dark:border-slate-800">
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                      {language === "hi" ? "प्रारंभिक मूल्य" : "Starting at"}
+        {/* 3 Main Pricing Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-16">
+          {pricingPlans.map((plan) => {
+            const isPopular = plan.popular;
+
+            return (
+              <div
+                key={plan.id}
+                className={`rounded-2xl p-7 sm:p-8 flex flex-col justify-between transition-all relative ${
+                  isPopular
+                    ? "bg-white dark:bg-slate-900 border-2 border-[#2a9dc8] shadow-lg ring-2 ring-[#2a9dc8]/20"
+                    : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md"
+                }`}
+              >
+                {/* Popular Pill */}
+                {isPopular && (
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#2a9dc8] text-white text-[11px] font-bold uppercase tracking-wider px-3.5 py-1 rounded-full shadow-sm">
+                    {language === "hi" ? "सर्वाधिक लोकप्रिय ★" : "Most Popular ★"}
+                  </div>
+                )}
+
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+                      {plan.name}
+                    </h3>
+                    <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+                      {plan.trial}
                     </span>
                   </div>
-                  <div className="flex items-baseline gap-1.5 mt-1">
-                    <span className="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                      {pkg.startingPrice}
-                    </span>
-                    <span className="text-sm font-semibold text-slate-500 dark:text-slate-400">
-                      {pkg.billingPeriod}
-                    </span>
-                  </div>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 font-medium">
-                    {language === "hi" ? "उपयुक्त:" : "Best for:"} {pkg.targetAudience}
+
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mb-6 min-h-[36px]">
+                    {plan.tagline}
                   </p>
-                </div>
 
-                {/* Features List */}
-                <div className="mt-6">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-4">
-                    {language === "hi" ? "क्या शामिल है" : "What's Included"}
-                  </h4>
-                  <ul className="space-y-3">
-                    {pkg.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-2.5">
-                        <div className="w-5 h-5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 mt-0.5">
-                          <Check className="w-3.5 h-3.5" />
-                        </div>
-                        <span className="text-sm text-slate-700 dark:text-slate-300 leading-snug">
-                          {feature}
+                  {/* Price */}
+                  <div className="pb-6 mb-6 border-b border-slate-100 dark:border-slate-800">
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                        {plan.price}
+                      </span>
+                      <span className="text-sm font-semibold text-slate-500 dark:text-slate-400">
+                        {plan.period}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Features */}
+                  <ul className="space-y-3 mb-8">
+                    {plan.features.map((feat, idx) => (
+                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm">
+                        {feat.included ? (
+                          <div className="w-4 h-4 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+                            <Check className="w-3 h-3 stroke-[2.5]" />
+                          </div>
+                        ) : (
+                          <div className="w-4 h-4 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 flex items-center justify-center shrink-0 mt-0.5">
+                            <X className="w-3 h-3" />
+                          </div>
+                        )}
+                        <span
+                          className={
+                            feat.included
+                              ? "text-slate-700 dark:text-slate-300 font-medium"
+                              : "text-slate-400 dark:text-slate-600 line-through"
+                          }
+                        >
+                          {feat.text}
                         </span>
                       </li>
                     ))}
                   </ul>
+                </div>
 
-                  {/* Scope note if applicable */}
-                  {pkg.scopeNote && (
-                    <div className="mt-5 p-3 rounded-lg bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                      <span className="font-semibold text-slate-700 dark:text-slate-300 block mb-0.5">
-                        {language === "hi" ? "स्कोप नोट:" : "Scope note:"}
-                      </span>
-                      {pkg.scopeNote}
-                    </div>
-                  )}
+                <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+                  <a
+                    href={`#enquiry?plan=${plan.id}`}
+                    className={`w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-sm font-bold transition-all ${
+                      isPopular
+                        ? "bg-[#2a9dc8] text-white hover:bg-[#2286ab] shadow-sm"
+                        : "bg-slate-900 dark:bg-slate-800 text-white hover:bg-[#2a9dc8] dark:hover:bg-[#2a9dc8] shadow-sm"
+                    }`}
+                  >
+                    <span>{plan.cta}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
                 </div>
               </div>
-
-              {/* Package CTA */}
-              <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-                <a
-                  href={`#contact?package=${pkg.id}`}
-                  className={`w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-sm font-semibold transition-all ${
-                    pkg.isPopular
-                      ? "bg-blue-600 text-white hover:bg-blue-700 shadow-md"
-                      : "bg-slate-900 dark:bg-slate-800 text-white hover:bg-blue-600 dark:hover:bg-blue-600 shadow-sm"
-                  }`}
-                >
-                  <span>{pkg.ctaText}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* Mandatory Transparent Pricing Disclaimer */}
-        <div className="mt-12 p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-center max-w-4xl mx-auto shadow-subtle">
-          <div className="flex items-start sm:items-center justify-center gap-2 text-xs text-slate-600 dark:text-slate-400">
-            <Info className="w-4 h-4 text-slate-500 shrink-0 mt-0.5 sm:mt-0" />
-            <p className="leading-relaxed">
-              {pricing.disclaimer}
-            </p>
+        {/* Feature Comparison Table Section */}
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden mb-16">
+          <button
+            type="button"
+            onClick={() => setShowComparison(!showComparison)}
+            className="w-full flex items-center justify-between p-6 bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-left cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          >
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-[#2a9dc8] block mb-1">
+                {ui.fullComparison}
+              </span>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                {ui.featureByFeature}
+              </h3>
+            </div>
+            <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-300">
+              <span>{showComparison ? "Hide breakdown" : "View all 17 features"}</span>
+              {showComparison ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+            </div>
+          </button>
+
+          {showComparison && (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse text-xs sm:text-sm">
+                <thead>
+                  <tr className="bg-slate-100/70 dark:bg-slate-800 text-slate-900 dark:text-white font-bold border-b border-slate-200 dark:border-slate-700">
+                    <th className="py-4 px-6 min-w-[200px]">{ui.featureCol}</th>
+                    <th className="py-4 px-4 text-center min-w-[100px]">{ui.freeCol}</th>
+                    <th className="py-4 px-4 text-center min-w-[120px]">{ui.growthCol}</th>
+                    <th className="py-4 px-4 text-center min-w-[120px] text-[#2a9dc8] bg-sky-50/50 dark:bg-sky-950/30">
+                      {ui.proCol}
+                    </th>
+                    <th className="py-4 px-4 text-center min-w-[120px]">{ui.scaleCol}</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                  {comparisonRows.map((row, idx) => {
+                    const isEven = idx % 2 === 0;
+                    return (
+                      <tr
+                        key={row.feature}
+                        className={isEven ? "bg-white dark:bg-slate-900" : "bg-slate-50/50 dark:bg-slate-900/50"}
+                      >
+                        <td className="py-3.5 px-6 font-medium text-slate-800 dark:text-slate-200">
+                          {row.feature}
+                        </td>
+                        <td className="py-3.5 px-4 text-center font-medium text-slate-600 dark:text-slate-400">
+                          {row.free === "✓" ? (
+                            <Check className="w-4 h-4 text-emerald-500 mx-auto" />
+                          ) : row.free === "×" ? (
+                            <span className="text-slate-300 dark:text-slate-600">—</span>
+                          ) : (
+                            row.free
+                          )}
+                        </td>
+                        <td className="py-3.5 px-4 text-center font-medium text-slate-600 dark:text-slate-400">
+                          {row.growth === "✓" ? (
+                            <Check className="w-4 h-4 text-emerald-500 mx-auto" />
+                          ) : row.growth === "×" ? (
+                            <span className="text-slate-300 dark:text-slate-600">—</span>
+                          ) : (
+                            row.growth
+                          )}
+                        </td>
+                        <td className="py-3.5 px-4 text-center font-semibold text-[#2a9dc8] bg-sky-50/30 dark:bg-sky-950/20">
+                          {row.pro === "✓" ? (
+                            <Check className="w-4 h-4 text-[#2a9dc8] mx-auto font-bold" />
+                          ) : row.pro === "×" ? (
+                            <span className="text-slate-300 dark:text-slate-600">—</span>
+                          ) : (
+                            row.pro
+                          )}
+                        </td>
+                        <td className="py-3.5 px-4 text-center font-medium text-slate-800 dark:text-slate-200">
+                          {row.scale === "✓" ? (
+                            <Check className="w-4 h-4 text-emerald-500 mx-auto" />
+                          ) : row.scale === "×" ? (
+                            <span className="text-slate-300 dark:text-slate-600">—</span>
+                          ) : (
+                            row.scale
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+
+        {/* Not Sure Which Plan? Help Block */}
+        <div className="bg-gradient-to-r from-slate-900 to-slate-800 dark:from-slate-900 dark:to-slate-950 rounded-2xl p-8 sm:p-10 text-white shadow-md">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="max-w-2xl">
+              <span className="text-xs font-bold uppercase tracking-wider text-sky-400 block mb-2">
+                {ui.notSureWhichPlan}
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                {ui.weHelpYouChoose}
+              </h3>
+              <p className="mt-2 text-sm sm:text-base text-slate-300 leading-relaxed">
+                {ui.notSureSub}
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+              <a
+                href="#enquiry"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold bg-[#2a9dc8] text-white hover:bg-[#2286ab] shadow-sm transition-all"
+              >
+                <PhoneCall className="w-4 h-4" />
+                <span>{ui.bookStrategyCall}</span>
+              </a>
+              <a
+                href={`https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(
+                  "Hello InfiBusiness team, I'd like help choosing the best plan for my business."
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-sm font-bold bg-white/10 text-white hover:bg-white/20 border border-white/20 transition-all"
+              >
+                <MessageCircle className="w-4 h-4 text-emerald-400" />
+                <span>{ui.whatsAppUs}</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>

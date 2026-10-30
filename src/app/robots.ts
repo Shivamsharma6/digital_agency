@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/"],
     },
-    sitemap: "https://growthwave-digital.example.com/sitemap.xml",
+    sitemap: "https://infibusiness.com/sitemap.xml",
   };
 }

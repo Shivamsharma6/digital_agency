@@ -3,102 +3,70 @@ export interface NavLink {
   href: string;
 }
 
-export interface SupportingPoint {
+export interface MetricItem {
+  value: string;
+  label: string;
+  sublabel?: string;
+}
+
+export interface InfiService {
+  id: string;
   title: string;
+  category: string;
   description: string;
+  tag: string;
+  iconName: string;
 }
 
-export interface BusinessChallenge {
+export interface InfiIndustry {
   id: string;
   title: string;
+  icon: string;
   description: string;
-  iconName: string;
+  tags: string[];
 }
 
-export interface ServiceCategory {
-  id: string;
-  title: string;
-  categoryTag: string;
-  summary: string;
-  outcome: string;
-  capabilities: string[];
-  scopeNote?: string;
-  iconName: string;
-}
-
-export interface IndustrySolution {
-  id: string;
-  name: string;
-  subtitle: string;
-  workflows: string[];
-  iconName: string;
-}
-
-export interface ProcessStep {
+export interface InfiProcessStep {
   step: number;
   title: string;
-  subtitle: string;
   description: string;
-  keyDeliverable: string;
 }
 
-export interface PricingPackage {
+export interface InfiPricingPlan {
   id: string;
   name: string;
-  startingPrice: string;
-  billingPeriod: string;
+  price: string;
+  period: string;
+  trial: string;
   tagline: string;
-  targetAudience: string;
-  features: string[];
-  ctaText: string;
-  isPopular?: boolean;
-  scopeNote?: string;
+  popular?: boolean;
+  features: {
+    included: boolean;
+    text: string;
+  }[];
+  cta: string;
 }
 
-export interface EngagementPrinciple {
-  title: string;
-  description: string;
-  iconName: string;
+export interface ComparisonRow {
+  feature: string;
+  free: string;
+  growth: string;
+  pro: string;
+  scale: string;
 }
 
-export interface ExampleUseCase {
-  title: string;
-  businessType: string;
-  label: string;
-  disclaimer: string;
-  before: {
-    title: string;
-    description: string;
-    points: string[];
-  };
-  solution: {
-    title: string;
-    description: string;
-    points: string[];
-  };
-  after: {
-    title: string;
-    description: string;
-    points: string[];
-  };
+export interface InfiTestimonial {
+  quote: string;
+  name: string;
+  business: string;
+  location: string;
+  rating: number;
 }
 
-export interface FAQItem {
+export interface InfiFAQ {
   id: string;
   question: string;
   answer: string;
-}
-
-export interface EnquiryFormData {
-  fullName: string;
-  businessName: string;
-  contactMethod: 'email' | 'phone' | 'both';
-  email: string;
-  phone: string;
-  industry: string;
-  serviceOfInterest: string;
-  problemDescription: string;
-  consent: boolean;
 }
 
 export interface SiteConfig {
@@ -106,56 +74,66 @@ export interface SiteConfig {
     name: string;
     tagline: string;
     subheadline: string;
-    legalNamePlaceholder: string;
-    foundedYear: number;
+    legalName: string;
+    sinceYear: number;
   };
   contact: {
-    emailPlaceholder: string;
-    phonePlaceholder: string;
-    whatsappNumber: string; // E.g. '919876543210' - placeholder for easy customization
+    salesPhone: string;
+    hrPhone: string;
+    whatsappNumber: string;
     whatsappDisplayNumber: string;
     whatsappDefaultMessage: string;
-    locationPlaceholder: string;
+    email: string;
+    address: string;
     workingHours: string;
   };
-  navLinks: NavLink[];
   hero: {
-    headline: string;
-    supportingCopy: string;
-    primaryCta: string;
-    secondaryCta: string;
-    supportingPoints: SupportingPoint[];
-  };
-  challenges: {
     badge: string;
-    headline: string;
-    intro: string;
-    items: BusinessChallenge[];
-    summary: string;
+    headlinePart1: string;
+    headlinePart2: string;
+    headlineAccent: string;
+    subheadline: string;
+    ctaPrimary: string;
+    ctaSecondary: string;
+    metrics: MetricItem[];
   };
-  services: ServiceCategory[];
-  industries: IndustrySolution[];
-  process: ProcessStep[];
-  pricing: {
+  trustedBy: string[];
+  servicesBadge: string;
+  servicesHeadline: string;
+  servicesSubheadline: string;
+  services: InfiService[];
+  processBadge: string;
+  processHeadline: string;
+  processSubheadline: string;
+  processSteps: InfiProcessStep[];
+  industriesBadge: string;
+  industriesHeadline: string;
+  industriesSubheadline: string;
+  industries: InfiIndustry[];
+  pricingBadge: string;
+  pricingHeadline: string;
+  pricingHeadlineAccent: string;
+  pricingSubheadline: string;
+  freePlan: {
     badge: string;
-    headline: string;
-    intro: string;
-    packages: PricingPackage[];
-    disclaimer: string;
+    title: string;
+    description: string;
+    features: string[];
+    cta: string;
   };
-  engagement: {
-    badge: string;
-    headline: string;
-    intro: string;
-    principles: EngagementPrinciple[];
-  };
-  exampleUseCase: ExampleUseCase;
-  faqs: FAQItem[];
+  pricingPlans: InfiPricingPlan[];
+  comparisonRows: ComparisonRow[];
+  testimonialsBadge: string;
+  testimonialsHeadline: string;
+  testimonials: InfiTestimonial[];
+  faqBadge: string;
+  faqHeadline: string;
+  faqs: InfiFAQ[];
   finalCta: {
     headline: string;
-    supportingCopy: string;
-    primaryCta: string;
-    secondaryCta: string;
-    auditDisclaimer: string;
+    subheadline: string;
+    ctaPrimary: string;
+    ctaSecondary: string;
+    trustNote: string;
   };
 }

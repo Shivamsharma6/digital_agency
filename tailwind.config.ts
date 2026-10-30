@@ -12,35 +12,25 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        navy: {
-          50: "#f0f4f8",
-          100: "#d9e2ec",
-          200: "#bcccdc",
-          300: "#9fb3c8",
-          400: "#829ab1",
-          500: "#627d98",
-          600: "#486581",
-          700: "#334e68",
-          800: "#243b53",
-          900: "#102a43",
-          950: "#0b1727",
-        },
-        brand: {
-          primary: "#0F172A", // Deep Navy / Charcoal
-          secondary: "#1E293B",
-          accent: "#2563EB", // Restrained electric blue
-          teal: "#0D9488", // Restrained teal
-          surface: "#F8FAFC", // Clean light slate surface
+        infi: {
+          blue: "#2a9dc8", // InfiBusiness trademark cyan-blue
+          blueHover: "#2286ab",
+          blueLight: "#eaf6fb",
+          blueDark: "#1a6f8f",
+          dark: "#0b1522", // Deep navy/slate background
+          cardDark: "#101f33",
+          borderDark: "#1c324f",
         },
       },
       fontFamily: {
-        sans: ["var(--font-geist-sans)", "system-ui", "-apple-system", "sans-serif"],
+        sans: ["var(--font-jakarta)", "Plus Jakarta Sans", "system-ui", "-apple-system", "sans-serif"],
         mono: ["var(--font-geist-mono)", "monospace"],
       },
       boxShadow: {
         'subtle': '0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.05)',
-        'card': '0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.05)',
-        'elevated': '0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04)',
+        'card': '0 4px 12px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -2px rgba(15, 23, 42, 0.04)',
+        'elevated': '0 12px 30px -4px rgba(42, 157, 200, 0.12), 0 8px 16px -4px rgba(15, 23, 42, 0.04)',
+        'glow': '0 0 25px -5px rgba(42, 157, 200, 0.3)',
       },
     },
   },

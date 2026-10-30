@@ -2,26 +2,32 @@ import React from "react";
 import { siteConfig } from "@/config/siteConfig";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
-import { BusinessChallenges } from "@/components/BusinessChallenges";
 import { Services } from "@/components/Services";
-import { IndustrySolutions } from "@/components/IndustrySolutions";
 import { Process } from "@/components/Process";
+import { IndustrySolutions } from "@/components/IndustrySolutions";
 import { Pricing } from "@/components/Pricing";
-import { WorkingTogether } from "@/components/WorkingTogether";
-import { UseCaseStudy } from "@/components/UseCaseStudy";
+import { Testimonials } from "@/components/Testimonials";
 import { FAQ } from "@/components/FAQ";
 import { EnquirySection } from "@/components/EnquirySection";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFloatingButton } from "@/components/WhatsAppFloatingButton";
 
 export default function Home() {
-  // Truthful JSON-LD Schema (Organization / ProfessionalService) without fake reviews or ratings
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     name: siteConfig.brand.name,
-    description: siteConfig.hero.supportingCopy,
-    url: "https://growthwave-digital.example.com",
+    description: siteConfig.hero.subheadline,
+    url: "https://infibusiness.com",
+    telephone: siteConfig.contact.salesPhone,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "316 Lotus Aura 2, Sama Savli Road",
+      addressLocality: "Vadodara",
+      addressRegion: "Gujarat",
+      postalCode: "390024",
+      addressCountry: "IN",
+    },
     priceRange: "₹₹",
     openingHours: "Mo,Tu,We,Th,Fr,Sa 09:30-18:30",
     serviceArea: {
@@ -42,43 +48,37 @@ export default function Home() {
         {/* Navigation */}
         <Navbar />
 
-        {/* Main Content Landmarks */}
+        {/* Main Content Sections matching infibusiness.com */}
         <main id="main-content" className="flex-grow">
-          {/* Section B: Hero */}
+          {/* Hero Section */}
           <Hero />
 
-          {/* Section C: Trust and Business Challenges */}
-          <BusinessChallenges />
-
-          {/* Section D: Core Services */}
+          {/* 10 Automation Services */}
           <Services />
 
-          {/* Section E: Industry Solutions */}
-          <IndustrySolutions />
-
-          {/* Section F: How It Works */}
+          {/* How It Works & Live CRM Automation Pipeline */}
           <Process />
 
-          {/* Section G: Indicative Packages and Pricing */}
+          {/* Built for Your Industry (6 Industries) */}
+          <IndustrySolutions />
+
+          {/* Transparent Pricing, Free Plan & 17-Feature Breakdown */}
           <Pricing />
 
-          {/* Section H: What Working Together Looks Like */}
-          <WorkingTogether />
+          {/* Verified Client Results & Testimonials */}
+          <Testimonials />
 
-          {/* Section I: Example Transformation Use Case */}
-          <UseCaseStudy />
-
-          {/* Section J: Frequently Asked Questions */}
+          {/* Frequently Asked Questions */}
           <FAQ />
 
-          {/* Section K & 6: Final CTA & Lead Generation Form */}
+          {/* Final CTA & Demo / Free Plan Booking Form */}
           <EnquirySection />
         </main>
 
-        {/* Section L: Footer */}
+        {/* InfiBusiness Footer */}
         <Footer />
 
-        {/* Floating Quick WhatsApp Action */}
+        {/* Floating WhatsApp Action Button */}
         <WhatsAppFloatingButton />
       </div>
     </>

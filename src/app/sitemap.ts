@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://growthwave-digital.example.com";
+  const baseUrl = "https://infibusiness.com";
 
   return [
     {
@@ -18,6 +18,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/terms`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/refund`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.3,

@@ -1,13 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { siteConfig } from "@/config/siteConfig";
 import { AppProvider } from "@/context/AppContext";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const jakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
   display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 const geistMono = Geist_Mono({
@@ -19,43 +19,48 @@ const geistMono = Geist_Mono({
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b132b" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b1522" },
   ],
   width: "device-width",
   initialScale: 1,
 };
 
 export const metadata: Metadata = {
-  title: `${siteConfig.brand.name} | ${siteConfig.brand.tagline}`,
-  description: siteConfig.hero.supportingCopy,
+  title: "AI Automation for Local Businesses | Infibusiness Solution",
+  description:
+    "Infibusiness sets up CRM, AI chatbots, booking automation and review systems so local businesses capture leads, book faster and grow on autopilot.",
   keywords: [
-    "digital agency India",
-    "local business digital transformation",
-    "workflow automation",
-    "business websites",
-    "local SEO India",
+    "AI automation local business",
+    "CRM automation India",
+    "Infibusiness Solution",
     "WhatsApp lead automation",
-    "custom business software",
+    "LeadFlow",
+    "BookSmart",
+    "ChatPilot",
+    "ReputeUp",
+    "AI voice agent India",
   ],
-  authors: [{ name: siteConfig.brand.name }],
-  creator: siteConfig.brand.name,
-  publisher: siteConfig.brand.name,
-  metadataBase: new URL("https://growthwave-digital.example.com"),
+  authors: [{ name: "Infibusiness Solution" }],
+  creator: "Infibusiness Solution",
+  publisher: "Infibusiness Solution",
+  metadataBase: new URL("https://infibusiness.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: `${siteConfig.brand.name} | ${siteConfig.brand.tagline}`,
-    description: siteConfig.hero.supportingCopy,
-    url: "https://growthwave-digital.example.com",
-    siteName: siteConfig.brand.name,
-    locale: "en_IN",
+    title: "AI Automation for Local Businesses | Infibusiness Solution",
+    description:
+      "Infibusiness sets up CRM, AI chatbots, booking automation and review systems so local businesses capture leads, book faster and grow on autopilot.",
+    url: "https://infibusiness.com",
+    siteName: "Infibusiness Solution",
+    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.brand.name} | ${siteConfig.brand.tagline}`,
-    description: siteConfig.hero.supportingCopy,
+    title: "AI Automation for Local Businesses | Infibusiness Solution",
+    description:
+      "Infibusiness sets up CRM, AI chatbots, booking automation and review systems so local businesses capture leads, book faster and grow on autopilot.",
   },
   robots: {
     index: true,
@@ -97,7 +102,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 selection:bg-blue-100 selection:text-blue-900 dark:selection:bg-blue-900/60 dark:selection:text-blue-200 transition-colors duration-200`}
+        className={`${jakartaSans.variable} ${geistMono.variable} font-sans antialiased min-h-screen bg-white text-slate-900 dark:bg-[#0b1522] dark:text-slate-100 selection:bg-[#eaf6fb] selection:text-[#2a9dc8] dark:selection:bg-[#1a6f8f]/40 dark:selection:text-[#7fd4f4] transition-colors duration-200`}
       >
         <AppProvider>{children}</AppProvider>
       </body>
