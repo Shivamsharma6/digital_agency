@@ -22,8 +22,8 @@ export function Testimonials() {
           </h2>
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
             {language === "hi"
-              ? "देखें कि भारत भर के स्थानीय व्यवसाय कैसे अपने संचालन को स्वचालित कर रहे हैं और राजस्व बढ़ा रहे हैं।"
-              : "Real business owners sharing how automation changed their day-to-day operations and growth."}
+              ? "देखें कि पटना के कोचिंग संस्थान, क्लिनिक और सैलून कैसे अपने संचालन को स्वचालित कर रहे हैं और राजस्व बढ़ा रहे हैं।"
+              : "Real business owners across Patna sharing how Moon Digital automation transformed their leads, bookings, and revenue."}
           </p>
         </div>
 

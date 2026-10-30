@@ -26,41 +26,42 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "AI Automation for Local Businesses | Infibusiness Solution",
+  title: "Moon Digital Solutions | AI Automation & Growth Agency for Local Businesses",
   description:
-    "Infibusiness sets up CRM, AI chatbots, booking automation and review systems so local businesses capture leads, book faster and grow on autopilot.",
+    "Moon Digital Solutions sets up CRM pipelines, AI voice agents, WhatsApp booking automation, and 5-star Google review engines for businesses in Patna and Pan-India.",
   keywords: [
-    "AI automation local business",
-    "CRM automation India",
-    "Infibusiness Solution",
-    "WhatsApp lead automation",
+    "Moon Digital Solutions",
+    "AI automation Patna",
+    "digital marketing Patna",
+    "CRM automation Bihar",
+    "WhatsApp lead automation India",
     "LeadFlow",
     "BookSmart",
     "ChatPilot",
     "ReputeUp",
     "AI voice agent India",
   ],
-  authors: [{ name: "Infibusiness Solution" }],
-  creator: "Infibusiness Solution",
-  publisher: "Infibusiness Solution",
-  metadataBase: new URL("https://infibusiness.com"),
+  authors: [{ name: "Moon Digital Solutions" }],
+  creator: "Moon Digital Solutions",
+  publisher: "Moon Digital Solutions",
+  metadataBase: new URL("https://digitalagency-chi-eosin.vercel.app"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "AI Automation for Local Businesses | Infibusiness Solution",
+    title: "Moon Digital Solutions | AI Automation & Growth Agency",
     description:
-      "Infibusiness sets up CRM, AI chatbots, booking automation and review systems so local businesses capture leads, book faster and grow on autopilot.",
-    url: "https://infibusiness.com",
-    siteName: "Infibusiness Solution",
+      "Moon Digital Solutions sets up CRM pipelines, AI voice agents, WhatsApp booking automation, and 5-star Google review engines for businesses in Patna and Pan-India.",
+    url: "https://digitalagency-chi-eosin.vercel.app",
+    siteName: "Moon Digital Solutions",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Automation for Local Businesses | Infibusiness Solution",
+    title: "Moon Digital Solutions | AI Automation & Growth Agency",
     description:
-      "Infibusiness sets up CRM, AI chatbots, booking automation and review systems so local businesses capture leads, book faster and grow on autopilot.",
+      "Moon Digital Solutions sets up CRM pipelines, AI voice agents, WhatsApp booking automation, and 5-star Google review engines for businesses in Patna and Pan-India.",
   },
   robots: {
     index: true,

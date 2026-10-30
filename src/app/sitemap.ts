@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://infibusiness.com";
+  const baseUrl = "https://digitalagency-chi-eosin.vercel.app";
 
   return [
     {

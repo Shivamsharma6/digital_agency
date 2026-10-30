@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/"],
     },
-    sitemap: "https://infibusiness.com/sitemap.xml",
+    sitemap: "https://digitalagency-chi-eosin.vercel.app/sitemap.xml",
   };
 }

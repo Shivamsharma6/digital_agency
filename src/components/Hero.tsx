@@ -59,7 +59,7 @@ export function Hero() {
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </a>
               <a
-                href="#contact"
+                href="#enquiry"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-bold bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700 hover:border-[#2a9dc8] dark:hover:border-[#2a9dc8] hover:bg-[#eaf6fb]/30 dark:hover:bg-slate-800 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 shadow-sm"
               >
                 <span>{hero.ctaSecondary}</span>

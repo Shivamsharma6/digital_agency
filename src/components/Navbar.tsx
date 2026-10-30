@@ -48,21 +48,23 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* InfiBusiness Brand Logo */}
+          {/* Moon Digital Solutions Brand Logo */}
           <Link
             href="/"
             className="flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2a9dc8] rounded-lg p-1"
             aria-label={`${t.brand.name} Home`}
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2a9dc8] to-[#1a6f8f] flex items-center justify-center text-white font-extrabold text-xl shadow-sm tracking-tight group-hover:scale-105 transition-transform">
-              <span className="font-mono text-2xl font-black">∞</span>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-900 via-indigo-950 to-[#2a9dc8] p-[1.5px] shadow-md group-hover:scale-105 transition-all flex items-center justify-center border border-[#2a9dc8]/40">
+              <div className="w-full h-full rounded-[10px] bg-slate-950 flex items-center justify-center text-sky-400 font-bold">
+                <span className="text-lg">🌙</span>
+              </div>
             </div>
             <div className="flex flex-col">
-              <span className="font-extrabold text-slate-900 dark:text-white tracking-tight text-xl leading-tight flex items-center gap-1">
-                {t.brand.name}
+              <span className="font-extrabold text-slate-900 dark:text-white tracking-tight text-lg sm:text-xl leading-tight">
+                Moon <span className="text-[#2a9dc8]">Digital</span>
               </span>
-              <span className="text-[11px] text-[#2a9dc8] font-bold tracking-wider uppercase">
-                {language === "hi" ? "एआई ऑटोमेशन" : "AI Automation"}
+              <span className="text-[10px] text-[#2a9dc8] font-bold tracking-wider uppercase">
+                {language === "hi" ? "सॉल्यूशंस · पटना" : "Solutions · Patna"}
               </span>
             </div>
           </Link>
@@ -280,7 +282,7 @@ export function Navbar() {
               {t.ui.navIndustries} (6 Industries)
             </a>
             <a
-              href="#how-it-works"
+              href="#process"
               onClick={closeMenu}
               className="px-3 py-2 text-base font-semibold text-slate-800 dark:text-slate-200 hover:text-[#2a9dc8] rounded-lg"
             >
@@ -301,7 +303,7 @@ export function Navbar() {
               {language === "hi" ? "अक्सर पूछे जाने वाले सवाल" : "FAQ"}
             </a>
             <a
-              href="#contact"
+              href="#enquiry"
               onClick={closeMenu}
               className="px-3 py-2 text-base font-semibold text-slate-800 dark:text-slate-200 hover:text-[#2a9dc8] rounded-lg"
             >
@@ -319,7 +321,7 @@ export function Navbar() {
               <ArrowRight className="w-4 h-4" />
             </a>
             <a
-              href="#contact"
+              href="#enquiry"
               onClick={closeMenu}
               className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-full text-sm font-bold border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200"
             >

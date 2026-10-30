@@ -18,17 +18,19 @@ export function Footer() {
           <div className="lg:col-span-2 space-y-4">
             <Link
               href="/"
-              className="flex items-center gap-2 group inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2a9dc8] rounded-lg"
+              className="flex items-center gap-2.5 group inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2a9dc8] rounded-lg"
             >
-              <div className="w-9 h-9 rounded-xl bg-[#2a9dc8] flex items-center justify-center text-white font-extrabold text-base tracking-tight shadow-sm">
-                IB
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-900 via-indigo-950 to-[#2a9dc8] p-[1.5px] shadow-sm flex items-center justify-center border border-[#2a9dc8]/40">
+                <div className="w-full h-full rounded-[10px] bg-slate-950 flex items-center justify-center text-sky-400 font-bold">
+                  <span className="text-lg">🌙</span>
+                </div>
               </div>
               <div className="flex flex-col">
                 <span className="font-extrabold text-white text-lg tracking-tight leading-none">
-                  Infi<span className="text-[#2a9dc8]">Business</span>
+                  Moon <span className="text-[#2a9dc8]">Digital</span>
                 </span>
-                <span className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase mt-0.5">
-                  Solution
+                <span className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase mt-1">
+                  Solutions · Patna
                 </span>
               </div>
             </Link>
